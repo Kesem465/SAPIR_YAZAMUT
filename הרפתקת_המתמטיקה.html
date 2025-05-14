@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <title>הרפתקת המתמטיקה</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      background-color: #e8f0ff;
+      color: #333;
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+      direction: rtl;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    input[type="number"] {
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100px;
+      margin-left: 10px;
+    }
+
+    button {
+      padding: 10px 16px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="stage-1">
+    <h2>שלב 1: שער הדרקון</h2>
+    <p>הגעת לשער הגדול של הממלכה, אך דרקון שומר עליו. כדי לעבור, עליך לפתור את חידת המתמטיקה שלו:</p>
+    <p><strong>"כמה זה 12 כפול 3?"</strong></p>
+    <input type="number" id="answer1">
+    <button onclick="checkAnswer(1, 36)">בדוק</button>
+    <div class="result" id="result1"></div>
+  </div>
+
+  <div class="card hidden" id="stage-2">
+    <h2>שלב 2: גשר החידות</h2>
+    <p>עברת את הדרקון! עכשיו אתה ניצב מול גשר שמתמוטט אם תטעה:</p>
+    <p><strong>"מהו שורש ריבועי של 81?"</strong></p>
+    <input type="number" id="answer2">
+    <button onclick="checkAnswer(2, 9)">בדוק</button>
+    <div class="result" id="result2"></div>
+  </div>
+
+  <div class="card hidden" id="stage-3">
+    <h2>שלב 3: חדר הקסם האחרון</h2>
+    <p>הגעת אל חדר הקסם האחרון. הקוסם הזקן שואל:</p>
+    <p><strong>"אם יש לך 3 מטבעות שכל אחד שווה 5 שקלים, כמה כסף יש לך?"</strong></p>
+    <input type="number" id="answer3">
+    <button onclick="checkAnswer(3, 15)">בדוק</button>
+    <div class="result" id="result3"></div>
+  </div>
+
+  <div class="card hidden" id="victory">
+    <h2>ניצחת!</h2>
+    <p>פתרת את כל החידות והצלת את הממלכה! 🏆</p>
+  </div>
+
+  <script>
+    function checkAnswer(stage, correct) {
+      const input = document.getElementById(`answer${stage}`);
+      const result = document.getElementById(`result${stage}`);
+      const userAnswer = parseInt(input.value);
+
+      if (userAnswer === correct) {
+        result.style.color = "green";
+        result.innerText = "נכון! ממשיכים לשלב הבא...";
+        setTimeout(() => {
+          document.getElementById(`stage-${stage}`).classList.add("hidden");
+          if (stage < 3) {
+            document.getElementById(`stage-${stage + 1}`).classList.remove("hidden");
+          } else {
+            document.getElementById("victory").classList.remove("hidden");
+          }
+        }, 1500);
+      } else {
+        result.style.color = "red";
+        result.innerText = "טעות. נסה שוב.";
+      }
+    }
+  </script>
+
+</body>
+</html>
